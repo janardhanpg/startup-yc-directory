@@ -10,13 +10,13 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const params = {search: query || null}
+  const params = { search: query || null };
   // const posts = await client.fetch(STARTUPS_QUERY)
   const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
   console.log(JSON.stringify(posts, null, 2));
   return (
     <>
-      <section className="pink_container " style={{ background: "#EE2B69" }}>
+      <section className="pink_container">
         <h1 className="heading">
           Pitch Your Startup, <br />
           Connect With Entrepreneurs
@@ -33,12 +33,13 @@ export default async function Home({
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartUpTypeCard) =>(<StartUpCard key={post?._id} post={post} />))
+            posts.map((post: StartUpTypeCard) => (
+              <StartUpCard key={post?._id} post={post} />
+            ))
           ) : (
             <p className="no-resilts">No Startups Found</p>
           )}
         </ul>
-        
       </section>
 
       <SanityLive />
